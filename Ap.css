@@ -1,0 +1,210 @@
+/* Ap.css — Cleaner + high-contrast + responsive + print-friendly + fixes */
+:root{
+  --bg: #f6f9fc;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --text: #0b1b26;
+  --accent-start: #3b82f6;
+  --accent-end: #10b981;
+  --accent-grad: linear-gradient(90deg,var(--accent-start),var(--accent-end));
+  --glass: rgba(255,255,255,0.7);
+
+  --card-radius: 12px;
+  --shadow-1: 0 6px 18px rgba(11,23,35,0.06);
+  --shadow-2: 0 18px 40px rgba(11,23,35,0.08);
+
+  --control-bg: #ffffff;
+  --control-border: rgba(11,23,35,0.06);
+
+  --legend-row-border: rgba(11,23,35,0.04);
+}
+
+/* Dark theme tokens */
+body.dark{
+  --bg: linear-gradient(180deg,#071224 0%, #07142b 60%);
+  --surface: #071028;
+  --muted: #9aa8bf;
+  --text: #e6eefc;
+  --accent-start: #60a5fa;
+  --accent-end: #34d399;
+  --control-bg: rgba(255,255,255,0.02);
+  --control-border: rgba(255,255,255,0.06);
+  --legend-row-border: rgba(255,255,255,0.04);
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html,body{ height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background:var(--bg); color:var(--text); transition: background .25s ease, color .25s ease; line-height:1.35; }
+
+.app-shell { max-width:1220px; margin:18px auto; padding:14px; }
+
+/* Topbar */
+.topbar{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+.brand{ display:flex; align-items:center; gap:12px; }
+.logo{ width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--surface); box-shadow:var(--shadow-1); }
+.title-block .app-title{ font-weight:700; font-size:1.15rem; }
+.title-block .app-sub{ font-size:.88rem; color:var(--muted); margin-top:2px; }
+
+/* Top controls */
+.top-controls{ display:flex; gap:8px; align-items:center; }
+.icon-btn{ padding:8px; border-radius:8px; background:transparent; border:0; cursor:pointer; font-size:18px; }
+
+/* Buttons */
+.btn{ padding:8px 12px; border-radius:10px; font-weight:600; cursor:pointer; background:transparent; border:1px solid var(--control-border); color:var(--text); transition: transform .12s ease, box-shadow .12s ease; }
+.btn:hover{ transform: translateY(-3px); box-shadow:var(--shadow-1); }
+.btn.primary{ background: var(--accent-grad); color:#fff; border:0; }
+.btn.secondary{ background: var(--control-bg); }
+.btn.ghost{ background: transparent; }
+
+/* Menu panel */
+.menu-wrap{ position:relative; }
+.menu-panel{ position:absolute; right:0; top:44px; min-width:220px; background:var(--surface); border-radius:10px; box-shadow: 0 8px 30px rgba(2,6,23,0.2); padding:10px; z-index:11000; color:var(--text); border:1px solid var(--control-border); }
+.menu-panel.hidden{ display:none; }
+.menu-item{ display:block; width:100%; text-align:left; padding:8px 10px; border-radius:8px; background:transparent; border:1px solid transparent; margin-bottom:6px; cursor:pointer; color:var(--text); }
+.menu-item:hover{ background: rgba(0,0,0,0.03); }
+
+/* Layout: main-grid uses 2 columns now (content + right sidebar) */
+.main-grid{ display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start; }
+@media (max-width:1100px){ .main-grid{ grid-template-columns:1fr; gap:16px; } }
+.card{ background:var(--surface); border-radius:var(--card-radius); padding:14px; box-shadow:var(--shadow-1); margin-bottom:14px; }
+
+/* Controls card */
+.controls-card{ padding:16px; margin-bottom:6px; }
+.controls-grid{ display:grid; grid-template-columns: 1fr 220px 220px; gap:18px; align-items:center; }
+.control label{ display:block; font-size:.9rem; color:var(--muted); margin-bottom:8px; }
+.control input, .control select, .form-card input, .form-card select{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--control-border); background:var(--control-bg); color:var(--text); transition: box-shadow .12s ease, border-color .12s ease; }
+.control input::placeholder{ color: rgba(107,114,128,0.85); }
+
+/* Make select options readable (apply to both light & dark). Browsers vary but this helps */
+select, select option {
+  color: var(--text);
+  background: var(--control-bg);
+}
+
+/* Split grid */
+.split-grid{ display:grid; grid-template-columns:540px 1fr; gap:18px; }
+@media (max-width:1100px){ .split-grid{ grid-template-columns:1fr; } }
+.form-card{ min-height:360px; padding:18px; display:flex; flex-direction:column; gap:12px; }
+.form-card label{ font-weight:600; color:var(--muted); margin-bottom:6px; }
+.row{ display:flex; gap:12px; align-items:flex-start; }
+.col{ flex:1; display:flex; flex-direction:column; }
+
+/* Form heading */
+.form-title{ font-size:1.15rem; margin:0 0 6px 0; font-weight:700; }
+
+/* "last added" summary just below the Add Expense card */
+.last-added{ padding:8px 10px; border-radius:8px; background:linear-gradient(90deg, rgba(59,130,246,0.06), rgba(16,185,129,0.04)); border:1px solid var(--control-border); color:var(--text); font-weight:600; }
+.last-added.hidden{ display:none; }
+
+/* Actions */
+.actions{ display:flex; gap:8px; margin-top:8px; }
+
+/* List */
+.expense-list{ list-style:none; padding:0; margin:0; max-height:520px; overflow:auto; }
+/* grid-columns: checkbox | content | actions */
+.expense-item{ display:grid; grid-template-columns:34px 1fr auto; gap:10px; align-items:start; padding:12px; border-radius:10px; border:1px solid var(--legend-row-border); background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); color:var(--text); }
+.item-select{ display:flex; align-items:flex-start; padding-top:4px; }
+.item-select .select-chk{ width:18px; height:18px; }
+.description{ font-weight:700; margin-bottom:6px; }
+.meta{ font-size:.88rem; color:var(--muted); }
+
+/* small action buttons */
+.small-btn{ padding:6px 8px; border-radius:8px; background:var(--control-bg); border:1px solid var(--control-border); cursor:pointer; }
+
+/* Chart area */
+.chart-card, .pie-card, .yearly-card{ min-height:220px; padding:18px; border-radius:12px; margin-bottom:14px; }
+.chart-card h4, .pie-card h4, .yearly-card h4{ margin:0 0 12px 0; font-size:1.05rem; }
+
+/* Canvas */
+canvas{ width:100%; height:160px; display:block; border-radius:10px; background:var(--control-bg); box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); }
+
+/* Legend */
+.pie-legend{ margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+.legend-row{ display:flex; align-items:center; gap:10px; padding:8px; border-radius:8px; border:1px solid var(--legend-row-border); background:transparent; transition: background .12s ease; }
+.legend-row:hover{ background: rgba(0,0,0,0.02); }
+.legend-color{ width:14px; height:14px; border-radius:4px; }
+.legend-label{ color:var(--text); font-weight:600; }
+.legend-value{ margin-left:auto; color:var(--muted); font-weight:700; }
+
+/* About overlay and tabs - improved dark theme visibility */
+.about-overlay{ position: fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.60); z-index:9999; backdrop-filter: blur(4px); }
+.about-overlay.hidden{ display:none; }
+.about-overlay.show{ opacity:1; transform:none; }
+
+.about-card{
+  width:min(880px,94%);
+  max-height:80vh;
+  overflow:auto;
+  padding:20px 22px;
+  box-sizing:border-box;
+  -webkit-overflow-scrolling: touch;
+  border-radius:14px;
+  background: var(--surface);
+  box-shadow: 0 20px 40px rgba(2,6,23,0.18);
+  color:var(--text);
+}
+body.dark .about-overlay{ background: rgba(2,6,23,0.65); }
+
+/* make about tabs readable in dark mode */
+.about-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.00));
+}
+.about-tab{
+  padding:6px 10px; border-radius:8px; border:1px solid var(--control-border); background:var(--control-bg); cursor:pointer; font-weight:600; color:var(--text);
+  min-width:84px; text-align:center;
+}
+.about-tab.active{ background: var(--accent-grad); color:#fff; border:0; box-shadow: var(--shadow-1); }
+
+/* Welcome minimal */
+.welcome-overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:2000; pointer-events:none; }
+.welcome-content{ text-align:center; }
+
+/* Footer */
+.footer{ text-align:center; color:var(--muted); margin-top:22px; font-size:.92rem; }
+
+/* Search popup */
+.search-popup{ position:fixed; left:20px; top:110px; width:420px; max-height:70vh; overflow:auto; z-index:12000; }
+.search-popup.hidden{ display:none; }
+.search-popup-inner{ background:var(--surface); border-radius:12px; padding:12px; box-shadow:0 20px 40px rgba(2,6,23,0.25); border:1px solid var(--control-border); color:var(--text); }
+.search-popup-header{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.search-popup-body .result-row{ padding:8px; border-radius:8px; border:1px solid var(--legend-row-border); margin-bottom:8px; background:transparent; }
+.search-popup-body .result-row strong{ display:block; margin-bottom:4px; }
+.search-popup-body .result-meta{ color:var(--muted); font-size:0.9rem; }
+
+/* Canvas tooltip */
+.canvas-tooltip{
+  position: fixed;
+  pointer-events: none;
+  padding:6px 8px;
+  border-radius:6px;
+  background: rgba(10,12,16,0.92);
+  color: #fff;
+  font-weight:700;
+  font-size:12px;
+  z-index:13000;
+  transform: translate(-50%, -120%);
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.35);
+}
+.canvas-tooltip.hidden{ display:none; }
+
+/* Print styles */
+@media print {
+  body *{ visibility:hidden; }
+  .printable, .printable *{ visibility:visible; }
+  .printable{ position:absolute; left:0; top:0; width:100%; }
+}
+
+/* Responsive helpers */
+@media (max-width:980px){
+  .controls-grid{ grid-template-columns: 1fr; }
+  .chart-card, .pie-card, .yearly-card{ min-height:180px; }
+  canvas{ height:150px; }
+}

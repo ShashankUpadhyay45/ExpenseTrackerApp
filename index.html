@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SpendSage 🧾 — Smart Expense Companion</title>
+  <link rel="stylesheet" href="Ap.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- Welcome -->
+    <div id="welcome-screen" class="welcome-overlay">
+      <div class="welcome-content">
+        <div class="welcome-logo">
+          <svg width="72" height="72" viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#60a5fa"/>
+                <stop offset="1" stop-color="#34d399"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="6" width="28" height="36" rx="3" fill="url(#g1)"></rect>
+            <path d="M6 42 L10 38 L14 42 L18 38 L22 42 L34 42" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <h1 class="welcome-title">SpendSage</h1>
+        <div class="welcome-sub">smart • calm • clear</div>
+      </div>
+    </div>
+
+    <!-- ABOUT PANEL -->
+    <div id="about-panel" class="about-overlay hidden" aria-hidden="true">
+      <div class="about-card slide-in" role="dialog" aria-modal="true">
+        <button id="close-about" class="close-about-btn" aria-label="Close about panel">✖</button>
+
+        <div class="about-tabs" role="tablist" aria-label="About tabs">
+          <button class="about-tab active" data-tab="about-content" role="tab" aria-selected="true">About</button>
+          <button class="about-tab" data-tab="privacy-content" role="tab" aria-selected="false">Privacy</button>
+          <button class="about-tab" data-tab="help-content" role="tab" aria-selected="false">Help</button>
+        </div>
+
+        <div class="about-content" id="about-content" role="tabpanel">
+          <h1>SpendSage 🧾</h1>
+          <p class="about-text">A clean, offline-first expense manager designed for clarity, calmness, and speed.</p>
+          <ul class="about-list">
+            <li>➕ Create expenses or recurring rules</li>
+            <li>📊 Monthly and category charts</li>
+            <li>⬇️ Export CSV & PDF</li>
+            <li>🌙 Automatic light/dark mode</li>
+            <li>🌏 Localized currency & format</li>
+            <li>💾 All data stored on your device</li>
+          </ul>
+          <hr class="about-divider">
+          <h2>Version</h2>
+          <p class="about-small">SpendSage v1.0.0 • November 2025</p>
+        </div>
+
+        <div class="about-content hidden" id="privacy-content" role="tabpanel" aria-hidden="true">
+          <h1>Privacy Policy 🔒</h1>
+          <p>Your data stays <strong>100% on your device</strong>.</p>
+          <ul>
+            <li>No servers</li>
+            <li>No tracking</li>
+            <li>No analytics</li>
+            <li>No ads</li>
+          </ul>
+        </div>
+
+        <div class="about-content hidden" id="help-content" role="tabpanel" aria-hidden="true">
+          <h1>Help & Support ❓</h1>
+          <p>Quick usage guide:</p>
+          <ul>
+            <li>Use “Add Expense” to log transactions</li>
+            <li>Use “Recurring” to automate repeated expenses</li>
+            <li>Filter using Search, Date or Month selector</li>
+            <li>Export CSV / Export PDF for reports</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div id="settings-panel" class="about-overlay hidden" aria-hidden="true">
+      <div class="about-card slide-in" role="dialog" aria-modal="true" style="max-width:420px">
+        <button id="close-settings" class="close-about-btn" aria-label="Close settings">✖</button>
+        <h2 style="margin-top:0">Settings</h2>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+          <label>Locale</label>
+          <select id="settings-locale">
+            <option value="auto">Auto</option>
+            <option value="en-IN">en-IN</option>
+            <option value="en-US">en-US</option>
+          </select>
+
+          <label>Currency</label>
+          <select id="settings-currency">
+            <option value="auto">Auto (defaults to INR)</option>
+            <option value="INR">INR</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="AUD">AUD</option>
+          </select>
+
+          <label>Theme</label>
+          <div style="display:flex;gap:8px">
+            <label><input type="radio" name="theme" value="light" checked> Light</label>
+            <label><input type="radio" name="theme" value="dark"> Dark</label>
+          </div>
+
+          <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+            <button id="save-settings" class="btn primary">Save</button>
+            <button id="cancel-settings" class="btn secondary">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="44" height="44" viewBox="0 0 48 48">
+            <defs>
+              <linearGradient id="g1b" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#60a5fa"/>
+                <stop offset="1" stop-color="#34d399"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="6" width="28" height="36" rx="3" fill="url(#g1b)"></rect>
+            <path d="M6 42 L10 38 L14 42 L18 38 L22 42 L34 42" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+
+        <div class="title-block">
+          <div class="app-title">SpendSage</div>
+          <div class="app-sub">smart • calm • clear</div>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <button id="settings-btn" class="btn ghost">Settings</button>
+        <button id="about-btn" class="btn ghost">About</button>
+
+        <div class="menu-wrap">
+          <button id="menu-btn" class="btn ghost">☰ Menu</button>
+          <div id="menu-panel" class="menu-panel hidden" aria-hidden="true">
+            <button id="m-add-expense" class="menu-item">➕ Add Expense</button>
+            <button id="m-recurring" class="menu-item">🔁 Recurring</button>
+            <button id="m-import-sample" class="menu-item">📥 Import Sample</button>
+            <button id="m-export-csv" class="menu-item">⬇️ Export CSV</button>
+            <button id="m-export-pdf" class="menu-item">🖨️ Export PDF</button>
+            <hr/>
+            <button id="m-select-all-visible" class="menu-item">☑️ Select all visible</button>
+            <button id="m-invert-selection" class="menu-item">🔁 Invert selection</button>
+            <button id="m-delete-selected" class="menu-item">🗑️ Delete selected</button>
+            <hr/>
+            <button id="m-replace-bills" class="menu-item">🔁 Replace Bills</button>
+            <button id="m-remove-category" class="menu-item">🧾 Remove all of a category</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN GRID -->
+    <main class="main-grid">
+      <!-- CONTENT AREA -->
+      <section class="content-area">
+        <section class="card controls-card">
+          <div class="controls-grid">
+            <div class="control">
+              <label>Search</label>
+              <input id="search" placeholder="Search description or category..." />
+            </div>
+
+            <div class="control">
+              <label>Date (search)</label>
+              <input type="date" id="search-date" />
+            </div>
+
+            <div class="control">
+              <label>Month</label>
+              <input type="month" id="filter-month" />
+            </div>
+
+            <div class="control">
+              <label>Sort</label>
+              <select id="sort-by">
+                <option value="date_desc">Date (new → old)</option>
+                <option value="amount_desc">Amount (high → low)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:12px" class="summary-pill">Total: <strong id="total-amount">₹0.00</strong></div>
+        </section>
+
+        <div class="split-grid">
+          <section class="card form-card">
+            <h2 class="form-title">Add Expense</h2>
+
+            <form id="expense-form">
+              <div class="row">
+                <div class="col"><label>Date</label><input type="date" id="date"/></div>
+                <div class="col"><label>Time</label><input type="time" id="time"/></div>
+                <div class="col">
+                  <label>Category</label>
+                  <select id="category">
+                    <option>Food</option>
+                    <option>Drink</option>
+                    <option>Transport</option>
+                    <option>Groceries</option>
+                    <option>Bills</option>
+                    <option>Shopping</option>
+                    <option>Other</option>
+                    <option value="custom">— Custom… —</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col"><label>Description</label><input type="text" id="description"/></div>
+                <div class="col"><label>Amount</label><input type="number" id="amount" min="0" step="0.01"/></div>
+                <div class="col">
+                  <label>Recurrence</label>
+                  <select id="recurrence">
+                    <option value="none">None</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="last-added" class="last-added hidden" aria-live="polite"></div>
+
+              <div class="row actions" style="justify-content:flex-start; margin-top:10px;">
+                <button id="add-btn" type="submit" class="btn primary" style="min-width:160px;">Save Expense</button>
+                <button id="clear-form" type="button" class="btn secondary" style="margin-left:8px;">Clear</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card list-card">
+            <ul id="expense-list" class="expense-list" aria-live="polite"></ul>
+          </section>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="sidebar-right">
+        <section class="card chart-card">
+          <h4>Monthly Spending</h4>
+          <canvas id="chart" width="720" height="240" role="img" aria-label="Monthly spending chart"></canvas>
+        </section>
+
+        <section class="card pie-card">
+          <h4>Category Breakdown</h4>
+          <canvas id="pie" width="360" height="240" role="img" aria-label="Category breakdown pie chart"></canvas>
+          <div id="pie-legend" class="pie-legend"></div>
+        </section>
+
+        <section class="card yearly-card">
+          <h4>Yearly Breakdown</h4>
+          <canvas id="yearly" width="360" height="140" role="img" aria-label="Yearly spending chart"></canvas>
+          <div id="yearly-legend" class="pie-legend"></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">SpendSage 🧾 — Offline • Privacy-first</footer>
+  </div>
+
+  <!-- search results popup -->
+  <div id="search-popup" class="search-popup hidden" aria-hidden="true">
+    <div class="search-popup-inner" role="dialog" aria-modal="true">
+      <div class="search-popup-header">
+        <strong>Search results</strong>
+        <button id="search-popup-close" class="small-btn">Close</button>
+      </div>
+      <div id="search-popup-body" class="search-popup-body"></div>
+    </div>
+  </div>
+
+  <!-- canvas tooltip -->
+  <div id="canvas-tooltip" class="canvas-tooltip hidden" aria-hidden="true"></div>
+
+  <script src="Ap.js"></script>
+</body>
+</html>
