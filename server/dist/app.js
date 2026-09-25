@@ -1,0 +1,34 @@
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import { config } from './config/index.js';
+import { generalLimiter } from './middleware/rateLimiter.js';
+import { errorHandler } from './middleware/errorHandler.js';
+import { AppError } from './utils/AppError.js';
+// Import Routes
+import routes from './routes/index.js';
+const app = express();
+// Middleware
+app.use(helmet());
+app.use(cors({
+    origin: config.CORS_ORIGIN,
+    credentials: true
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+if (config.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+app.use('/api', generalLimiter);
+// Routes
+app.use('/api', routes);
+// Handle unhandled routes
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+// Global error handler
+app.use(errorHandler);
+export default app;
