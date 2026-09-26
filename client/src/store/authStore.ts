@@ -1,21 +1,25 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface User {
-  id: string;
-  name: string;
+export interface User {
+  _id: string;
   email: string;
+  firstName: string;
+  lastName: string;
   avatar?: string;
 }
 
 interface AuthState {
   user: User | null;
   token: string | null;
+  refreshToken: string | null;
   isAuthenticated: boolean;
-  setUser: (user: User | null) => void;
-  setToken: (token: string | null) => void;
-  login: (user: User, token: string) => void;
+  isHydrated: boolean;
+  setUser: (user: User) => void;
+  setTokens: (token: string, refreshToken: string) => void;
+  login: (user: User, token: string, refreshToken: string) => void;
   logout: () => void;
+  setHydrated: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -23,14 +27,20 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
+      refreshToken: null,
       isAuthenticated: false,
-      setUser: (user) => set({ user, isAuthenticated: !!user }),
-      setToken: (token) => set({ token }),
-      login: (user, token) => set({ user, token, isAuthenticated: true }),
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+      isHydrated: false,
+      setUser: (user) => set({ user }),
+      setTokens: (token, refreshToken) => set({ token, refreshToken }),
+      login: (user, token, refreshToken) => set({ user, token, refreshToken, isAuthenticated: true }),
+      logout: () => set({ user: null, token: null, refreshToken: null, isAuthenticated: false }),
+      setHydrated: () => set({ isHydrated: true }),
     }),
     {
-      name: 'auth-storage',
+      name: 'spendsage-auth',
+      onRehydrateStorage: () => (state) => {
+        state?.setHydrated();
+      },
     }
   )
 );

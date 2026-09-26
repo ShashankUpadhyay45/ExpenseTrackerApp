@@ -51,10 +51,12 @@ export default function AppLayout() {
         <div className="border-t border-surface-200 p-4 dark:border-surface-800">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold dark:bg-primary-900 dark:text-primary-300">
-              {user?.name?.charAt(0) || 'U'}
+              {user?.firstName?.charAt(0) || user?.email?.charAt(0) || 'U'}
             </div>
             <div className="flex-1 overflow-hidden">
-              <p className="truncate text-sm font-medium text-surface-900 dark:text-surface-50">{user?.name || 'User'}</p>
+              <p className="truncate text-sm font-medium text-surface-900 dark:text-surface-50">
+                {(user?.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : user?.email) || 'User'}
+              </p>
               <p className="truncate text-xs text-surface-500">{user?.email || 'user@example.com'}</p>
             </div>
             <button onClick={logout} className="p-2 text-surface-500 hover:text-danger-500 transition-colors">

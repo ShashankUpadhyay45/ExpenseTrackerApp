@@ -1,9 +1,15 @@
 import { Router } from 'express';
-// We will build the controller logic in the next steps
+import { authController } from '../controllers/authController.js';
+import { protect } from '../middleware/auth.js';
+import { authLimiter } from '../middleware/rateLimiter.js';
+
 const router = Router();
 
-// Routes will be defined here
-router.post('/register', (req, res) => res.send('Register'));
-router.post('/login', (req, res) => res.send('Login'));
+router.post('/register', authLimiter, authController.register);
+router.post('/login', authLimiter, authController.login);
+router.post('/logout', protect, authController.logout);
+router.post('/refresh-token', authController.refreshToken);
+router.patch('/change-password', protect, authController.changePassword);
+router.post('/forgot-password', authLimiter, authController.forgotPassword);
 
 export default router;

@@ -13,6 +13,7 @@ import importRoutes from './import.js';
 import reportRoutes from './report.js';
 import aiRoutes from './ai.js';
 import searchRoutes from './search.js';
+import categoryRoutes from './category.js';
 
 const router = Router();
 
@@ -20,6 +21,7 @@ router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/accounts', accountRoutes);
 router.use('/transactions', transactionRoutes);
+router.use('/categories', categoryRoutes);
 router.use('/budgets', budgetRoutes);
 router.use('/bills', billRoutes);
 router.use('/goals', goalRoutes);

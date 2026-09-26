@@ -12,7 +12,7 @@ const importJobSchema = new mongoose.Schema({
   columnMapping: { type: Map, of: String },
   duplicatesFound: { type: Number, default: 0 },
   completedAt: { type: Date }
-}, { timestamps: { createdAt: true, updatedAt: false } });
+}, { timestamps: { createdAt: true, updatedAt: false }, suppressReservedKeysWarning: true });
 
 importJobSchema.index({ userId: 1 });
 

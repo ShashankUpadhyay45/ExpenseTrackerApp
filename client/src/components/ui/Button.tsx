@@ -11,6 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600",
         destructive: "bg-danger-500 text-white hover:bg-danger-600 dark:bg-danger-600 dark:hover:bg-danger-700",
+        danger: "bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-600 dark:hover:bg-rose-700",
         outline: "border border-surface-200 bg-transparent hover:bg-surface-100 dark:border-surface-800 dark:hover:bg-surface-800 dark:text-surface-50",
         secondary: "bg-surface-100 text-surface-900 hover:bg-surface-200 dark:bg-surface-800 dark:text-surface-50 dark:hover:bg-surface-700",
         ghost: "hover:bg-surface-100 hover:text-surface-900 dark:hover:bg-surface-800 dark:hover:text-surface-50",
