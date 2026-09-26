@@ -9,6 +9,25 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose%208-47A248.svg)](https://www.mongodb.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3-38B2AC.svg)](https://tailwindcss.com/)
 [![PWA](https://img.shields.io/badge/PWA-Ready-purple.svg)](https://web.dev/progressive-web-apps/)
+[![Vercel](https://img.shields.io/badge/Vercel-Live_App-black?logo=vercel)](https://spendsagee.vercel.app/)
+[![Render](https://img.shields.io/badge/Render-Live_API-46E3B7?logo=render)](https://expensetrackerapp-eyyd.onrender.com)
+
+---
+
+## 🚀 Live Deployments & Demo Access
+
+| Service | Live URL | Status | Description |
+| :--- | :--- | :--- | :--- |
+| **Frontend Web App** | [https://spendsagee.vercel.app](https://spendsagee.vercel.app/) | ![Vercel](https://img.shields.io/badge/Vercel-Live-success?logo=vercel) | Full-stack React 18 SPA hosted on Vercel Global Edge CDN |
+| **Backend REST API** | [https://expensetrackerapp-eyyd.onrender.com](https://expensetrackerapp-eyyd.onrender.com) | ![Render](https://img.shields.io/badge/Render-Live-46E3B7?logo=render) | Express Node.js & TypeScript API hosted on Render |
+| **API Health Check** | [https://expensetrackerapp-eyyd.onrender.com/api/health](https://expensetrackerapp-eyyd.onrender.com/api/health) | ![Health](https://img.shields.io/badge/API-Healthy-green) | Returns system uptime, version, and MongoDB connection status |
+
+### 🔑 Demo Account Credentials (Pre-seeded Indian Dataset in ₹)
+- **Email:** `demo@spendsage.com`
+- **Password:** `Password123!`
+- **User Identity:** **Aarav Sharma**
+- **Configured Accounts:** HDFC Salary Account, ICICI Emergency Savings, HDFC Regalia Credit Card, Paytm Wallet / UPI, Cash on Hand
+- **Currency & Localization:** Indian Rupees (`₹` / `INR`) with Indian numbering format (`en-IN`, Lakhs/Crores)
 
 ---
 
